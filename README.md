@@ -153,3 +153,49 @@ To learn more about Next.js, take a look at the following resources:
 ## Deploy on Vercel
 
 Commit and push your code changes to your GitHub repository to automatically trigger a new deployment.
+
+
+# BenchMark RL
+
+An open-pit drill pattern, Reduced Level (RL) elevation, and blast production tracker built with **Next.js 16 (App Router)**, **TypeScript**, **MongoDB**, **Zod**, and **Tailwind CSS**.
+
+## Features
+
+- **RL Elevation Breakdown:** Tracks Collar RL, Bench Height, Target Toe RL, and Subdrill Toe RL from highest bench to lowest.
+- **Production & Meterage KPIs:** Automatically calculates drilled meters vs. planned meters, hole completion percentage, and blast volume (BCM).
+- **Minerals & Geology Tracking:** Breaks down meterage and volume by commodity (`Iron Ore`, `Gold`, `Lithium`, `Nickel`, `Copper`, `Overburden / Waste`), rock type, drill rig ID, and powder factor.
+- **Interactive Filtering:** Filter active drill patterns by Pit, Operational Status (`Planned`, `Drilling`, `Ready to Charge`, `Charged`, `Fired`), and Mineral.
+- **Type-Safe Validation:** End-to-end schema enforcement with Zod and MongoDB (`EDD.md` as source of truth).
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router), React 19, TypeScript 5
+- **Database:** MongoDB Atlas / Local MongoDB (`mongodb` Node.js driver)
+- **Validation:** Zod
+- **Styling:** Tailwind CSS, shadcn/ui, Lucide Icons
+
+## Project Structure
+
+- `app/page.tsx` — Server Component entry point fetching live MongoDB patterns and connection status
+- `app/actions/drill-patterns.ts` — Next.js Server Actions for creating patterns and seeding sample data
+- `components/drill-dashboard.tsx` — Interactive KPI cards, filters, pattern entry form, and RL elevation breakdown
+- `db/drill-patterns.ts` — MongoDB data access layer (`drill_patterns` collection)
+- `lib/schemas/drill-pattern.ts` — Zod validation schemas and TypeScript interfaces
+- `EDD.md` — Entity-Document Design schema contract
+
+## Local Setup
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Configure environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+   Set `MONGODB_URI` in `.env` to your MongoDB connection string.
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000).
