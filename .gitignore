@@ -45,3 +45,9 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+.env.local
+.env
+atlas-credentials.env
+
+/Instructions
