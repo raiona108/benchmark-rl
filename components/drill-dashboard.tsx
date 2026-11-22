@@ -12,6 +12,8 @@ import {
 } from "@/app/actions/drill-patterns";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { RlCrossSection } from "@/components/rl-cross-section";
+
 
 interface Props {
     initialPatterns: DrillPatternDocument[];
@@ -403,118 +405,127 @@ export function DrillDashboard({ initialPatterns }: Props) {
                     )}
                 </div>
             </div>
-                  {/* RL Elevation Breakdown by Bench */}
-      <section className="rounded-lg border border-slate-800 bg-slate-900/60 p-5">
-        <div className="mb-4">
-          <h2 className="text-base font-semibold text-white">
-            RL Elevation Breakdown (Highest Bench to Lowest)
-          </h2>
-          <p className="text-xs text-slate-400">
-            Collar RL, Design Bench Height, Target Toe RL, and Subdrill Horizon
-          </p>
-        </div>
-
-        {rlSortedPatterns.length === 0 ? (
-          <p className="text-sm text-slate-400">
-            No patterns match your current filters.
-          </p>
-        ) : (
-          <div className="space-y-3">
-            {rlSortedPatterns.map((p) => {
-              const subdrillToeRl = Number(
-                (p.targetToeRl - p.subdrill).toFixed(2)
-              );
-              const holeDepth = Number(
-                (p.benchHeight + p.subdrill).toFixed(2)
-              );
-              const pct = Math.round((p.drilledHoles / p.plannedHoles) * 100);
-
-              return (
-                <div
-                  key={p._id || p.patternId}
-                  className="rounded-md border border-slate-800 bg-slate-950/80 p-4"
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-sm font-bold text-white">
-                        {p.patternId}
-                      </span>
-                      <span className="text-xs text-slate-400">
-                        {p.pitName} · {p.benchName}
-                      </span>
-                      <Badge
-                        variant="outline"
-                        className="border-indigo-500/40 bg-indigo-500/10 text-indigo-300"
-                      >
-                        {p.mineral} ({p.rockType})
-                      </Badge>
-                      {p.drillRigId && (
-                        <Badge
-                          variant="outline"
-                          className="border-slate-700 text-slate-300"
-                        >
-                          Rig: {p.drillRigId}
-                        </Badge>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs text-slate-300">
-                        {(p.drilledHoles * holeDepth).toFixed(1)}m /{" "}
-                        {(p.plannedHoles * holeDepth).toFixed(1)}m ({pct}%)
-                      </span>
-                      <Badge className="bg-slate-800 text-slate-200">
-                        {p.status}
-                      </Badge>
-                    </div>
-                  </div>
-
-                  <div className="mt-3 grid grid-cols-2 gap-2 border-t border-slate-800/80 pt-3 text-xs sm:grid-cols-5">
-                    <div>
-                      <span className="block text-slate-500">Collar RL</span>
-                      <span className="font-mono font-semibold text-emerald-400">
-                        {p.collarRl.toFixed(1)} m
-                      </span>
-                    </div>
-                    <div>
-                      <span className="block text-slate-500">Target Toe RL</span>
-                      <span className="font-mono font-semibold text-sky-400">
-                        {p.targetToeRl.toFixed(1)} m
-                      </span>
-                    </div>
-                    <div>
-                      <span className="block text-slate-500">
-                        Subdrill Toe RL
-                      </span>
-                      <span className="font-mono font-semibold text-amber-400">
-                        {subdrillToeRl.toFixed(1)} m ({p.subdrill}m sub)
-                      </span>
-                    </div>
-                    <div>
-                      <span className="block text-slate-500">
-                        Design Hole Depth
-                      </span>
-                      <span className="font-mono font-semibold text-slate-200">
-                        {holeDepth} m ({p.benchHeight}m bench)
-                      </span>
-                    </div>
-                    <div>
-                      <span className="block text-slate-500">
-                        Burden × Spacing / PF
-                      </span>
-                      <span className="font-mono text-slate-300">
-                        {p.burden}m × {p.spacing}m
-                        {p.powderFactor ? ` · ${p.powderFactor} kg/bcm` : ""}
-                      </span>
-                    </div>
-                  </div>
+            {/* RL Elevation Breakdown by Bench */}
+            <section className="rounded-lg border border-slate-800 bg-slate-900/60 p-5">
+                <div className="mb-4">
+                    <h2 className="text-base font-semibold text-white">
+                        RL Elevation Breakdown (Highest Bench to Lowest)
+                    </h2>
+                    <p className="text-xs text-slate-400">
+                        Collar RL, Design Bench Height, Target Toe RL, and Subdrill Horizon
+                    </p>
                 </div>
-              );
-            })}
-          </div>
-        )}
-      </section>
-    </div>
-  );
+
+                {rlSortedPatterns.length === 0 ? (
+                    <p className="text-sm text-slate-400">
+                        No patterns match your current filters.
+                    </p>
+                ) : (
+                    <div className="space-y-3">
+                        {rlSortedPatterns.map((p) => {
+                            const subdrillToeRl = Number(
+                                (p.targetToeRl - p.subdrill).toFixed(2)
+                            );
+                            const holeDepth = Number(
+                                (p.benchHeight + p.subdrill).toFixed(2)
+                            );
+                            const pct = Math.round((p.drilledHoles / p.plannedHoles) * 100);
+
+                            return (
+                                <div
+                                    key={p._id || p.patternId}
+                                    className="rounded-md border border-slate-800 bg-slate-950/80 p-4"
+                                >
+                                    <div className="flex flex-wrap items-center justify-between gap-2">
+                                        <div className="flex flex-wrap items-center gap-2">
+                                            <span className="font-mono text-sm font-bold text-white">
+                                                {p.patternId}
+                                            </span>
+                                            <span className="text-xs text-slate-400">
+                                                {p.pitName} · {p.benchName}
+                                            </span>
+                                            <Badge
+                                                variant="outline"
+                                                className="border-indigo-500/40 bg-indigo-500/10 text-indigo-300"
+                                            >
+                                                {p.mineral} ({p.rockType})
+                                            </Badge>
+                                            {p.drillRigId && (
+                                                <Badge
+                                                    variant="outline"
+                                                    className="border-slate-700 text-slate-300"
+                                                >
+                                                    Rig: {p.drillRigId}
+                                                </Badge>
+                                            )}
+                                        </div>
+
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-xs text-slate-300">
+                                                {(p.drilledHoles * holeDepth).toFixed(1)}m /{" "}
+                                                {(p.plannedHoles * holeDepth).toFixed(1)}m ({pct}%)
+                                            </span>
+                                            <Badge className="bg-slate-800 text-slate-200">
+                                                {p.status}
+                                            </Badge>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-3 grid grid-cols-2 gap-2 border-t border-slate-800/80 pt-3 text-xs sm:grid-cols-5">
+
+                                        <div>
+                                            <span className="block text-slate-500">Collar RL</span>
+                                            <span className="font-mono font-semibold text-emerald-400">
+                                                {p.collarRl.toFixed(1)} m
+                                            </span>
+                                        </div>
+                                        <RlCrossSection
+                                            pattern={p}
+                                            globalMaxRl={metrics.highestCollarRl ?? p.collarRl}
+                                            globalMinRl={
+                                                metrics.lowestSubdrillRl ?? p.targetToeRl - p.subdrill
+                                            }
+                                        />
+
+                                        <div>
+                                            <span className="block text-slate-500">Target Toe RL</span>
+                                            <span className="font-mono font-semibold text-sky-400">
+                                                {p.targetToeRl.toFixed(1)} m
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span className="block text-slate-500">
+                                                Subdrill Toe RL
+                                            </span>
+                                            <span className="font-mono font-semibold text-amber-400">
+                                                {subdrillToeRl.toFixed(1)} m ({p.subdrill}m sub)
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span className="block text-slate-500">
+                                                Design Hole Depth
+                                            </span>
+                                            <span className="font-mono font-semibold text-slate-200">
+                                                {holeDepth} m ({p.benchHeight}m bench)
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span className="block text-slate-500">
+                                                Burden × Spacing / PF
+                                            </span>
+                                            <span className="font-mono text-slate-300">
+                                                {p.burden}m × {p.spacing}m
+                                                {p.powderFactor ? ` · ${p.powderFactor} kg/bcm` : ""}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+            </section>
+        </div>
+    );
 }
 
