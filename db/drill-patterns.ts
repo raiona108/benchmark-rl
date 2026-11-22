@@ -56,25 +56,26 @@ export async function seedSamplePatterns(): Promise<number> {
   const now = new Date();
   const samples: Array<Omit<DrillPatternDocument, "_id">> = [
     {
-      patternId: "P-420-014",
-      pitName: "North Pit",
-      benchName: "420 Bench",
-      collarRl: 420.5,
-      targetToeRl: 408.5,
-      subdrill: 1.5,
-      benchHeight: 12.0,
-      burden: 4.5,
-      spacing: 5.2,
-      holeDiameterMm: 229,
-      rockType: "BIF",
-      drillRigId: "PV271-02",
-      powderFactor: 0.92,
-      plannedHoles: 140,
-      drilledHoles: 98,
-      status: "Drilling",
-      notes: "Hard band encountered at 8m depth on western edge.",
-      createdAt: now,
-      updatedAt: now,
+        patternId: "P-420-014",
+        pitName: "North Pit",
+        benchName: "420 Bench",
+        collarRl: 420.5,
+        targetToeRl: 408.5,
+        subdrill: 1.5,
+        benchHeight: 12.0,
+        burden: 4.5,
+        spacing: 5.2,
+        holeDiameterMm: 229,
+        rockType: "BIF",
+        drillRigId: "PV271-02",
+        powderFactor: 0.92,
+        plannedHoles: 140,
+        drilledHoles: 98,
+        status: "Drilling",
+        notes: "Hard band encountered at 8m depth on western edge.",
+        createdAt: now,
+        updatedAt: now,
+        mineral: "ore"
     },
     {
       patternId: "P-408-009",
@@ -96,6 +97,7 @@ export async function seedSamplePatterns(): Promise<number> {
       notes: "Dipped and cleared by shotfirer; 4 wet holes flagged.",
       createdAt: now,
       updatedAt: now,
+      mineral: "ore"
     },
     {
       patternId: "P-390-021",
@@ -117,6 +119,7 @@ export async function seedSamplePatterns(): Promise<number> {
       notes: "Collar survey pegged and ready for rig mobilization.",
       createdAt: now,
       updatedAt: now,
+      mineral: "ore"
     },
   ];
 
